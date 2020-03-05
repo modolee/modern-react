@@ -2,6 +2,7 @@ import React from "react";
 import UserItemView from './UserItemView'
 
 const UserItemContainer = ({ user, onRemove, onToggle }) => {
+
     return (
         <UserItemView
             user={user}
@@ -11,4 +12,4 @@ const UserItemContainer = ({ user, onRemove, onToggle }) => {
     );
 };
 
-export default UserItemContainer;
+export default React.memo(UserItemContainer);

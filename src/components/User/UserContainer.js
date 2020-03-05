@@ -1,6 +1,11 @@
-import React, {useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import userData from '../../data/users';
 import UserView from "./UserView";
+
+const countActiveUsers = users => {
+    console.log('활성 사용자 수를 세는 중...');
+    return users.filter(user => user.active).length;
+};
 
 const UserContainer = () => {
 
@@ -15,23 +20,32 @@ const UserContainer = () => {
 
     const nextId = useRef(4);
 
-    const onChange = e => {
+    // useEffect(() => {
+    //     console.log('user 값이 설정됨');
+    //     console.log(users);
+    //     return () => {
+    //         console.log('user 가 바뀌기 전..');
+    //         console.log(users);
+    //     }
+    // }, [users]);
+
+    const onChange = useCallback(e => {
         const {name, value} = e.target;
 
-        setInputs({
+        setInputs(inputs => ({
             ...inputs,
             [name]: value
-        })
-    };
+        }));
+    }, []);
 
-    const onCreate = () => {
+    const onCreate = useCallback(() => {
         const newUser = {
             id: nextId.current,
             username,
             email
         };
 
-        setUsers([...users, newUser]);
+        setUsers(users => [...users, newUser]);
 
         setInputs({
             username: '',
@@ -39,19 +53,21 @@ const UserContainer = () => {
         });
 
         nextId.current += 1;
-    };
+    }, [username, email]);
 
-    const onRemove = id => {
-        setUsers(users.filter(user => user.id !== id));
-    };
+    const onRemove = useCallback(id => {
+        setUsers(users => users.filter(user => user.id !== id));
+    }, []);
 
-    const onToggle = id => {
-        setUsers(
+    const onToggle = useCallback(id => {
+        setUsers(users =>
             users.map(user =>
                 user.id !== id ? user : {...user, active: !user.active}
                 )
         );
-    };
+    }, []);
+
+    const count = useMemo( () => countActiveUsers(users), [users]);
 
     return (
         <UserView
@@ -62,8 +78,9 @@ const UserContainer = () => {
             onCreate={onCreate}
             onRemove={onRemove}
             onToggle={onToggle}
+            count={count}
         />
     );
 };
 
-export default UserContainer;
+export default React.memo(UserContainer);

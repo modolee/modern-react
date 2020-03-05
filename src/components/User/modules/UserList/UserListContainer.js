@@ -2,6 +2,7 @@ import React from 'react';
 import UserListView from './UserListView';
 
 const UserListContainer = ({users, onRemove, onToggle}) => {
+
     return (
         <UserListView
             users={users}
@@ -11,4 +12,4 @@ const UserListContainer = ({users, onRemove, onToggle}) => {
     );
 };
 
-export default UserListContainer;
+export default React.memo(UserListContainer);

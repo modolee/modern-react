@@ -13,4 +13,4 @@ const CreateUserContainer = ({username, email, onChange, onCreate}) => {
     );
 };
 
-export default CreateUserContainer;
+export default React.memo(CreateUserContainer);
