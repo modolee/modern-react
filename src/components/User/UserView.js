@@ -21,4 +21,4 @@ const UserView = ({users, username, email, onChange, onCreate, onRemove, onToggl
     );
 };
 
-export default UserView;
+export default React.memo(UserView);
