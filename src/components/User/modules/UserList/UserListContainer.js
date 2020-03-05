@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import UserListView from './UserListView';
+import { UserStateContext } from "../../../../contexts/UserContextProvider";
 
-const UserListContainer = ({users, onRemove, onToggle}) => {
+const UserListContainer = () => {
+
+    const { users } = useContext(UserStateContext);
 
     return (
         <UserListView
             users={users}
-            onRemove={onRemove}
-            onToggle={onToggle}
         />
     );
 };
 
-export default React.memo(UserListContainer);
+export default UserListContainer;

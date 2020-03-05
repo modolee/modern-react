@@ -1,7 +1,24 @@
-import React from "react";
+import React, {useCallback, useContext} from "react";
 import UserItemView from './UserItemView'
+import { UserDispatchContext } from "../../../../contexts/UserContextProvider";
 
-const UserItemContainer = ({ user, onRemove, onToggle }) => {
+const UserItemContainer = ({ user }) => {
+
+    const dispatch = useContext(UserDispatchContext);
+
+    const onRemove = useCallback(id => {
+        dispatch({
+            type: 'REMOVE_USER',
+            id
+        });
+    }, [dispatch]);
+
+    const onToggle = useCallback(id => {
+        dispatch({
+            type: 'TOGGLE_USER',
+            id
+        });
+    }, [dispatch]);
 
     return (
         <UserItemView
@@ -12,4 +29,4 @@ const UserItemContainer = ({ user, onRemove, onToggle }) => {
     );
 };
 
-export default React.memo(UserItemContainer);
+export default UserItemContainer;

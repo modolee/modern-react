@@ -1,22 +1,14 @@
 import React from "react";
 import UserList from './modules/UserList';
 import CreateUser from './modules/CreateUser';
+import ActiveUserCount from './modules/ActiveUserCount';
 
-const UserView = ({users, username, email, onChange, onCreate, onRemove, onToggle, count}) => {
+const UserView = () => {
     return (
         <>
-            <CreateUser
-                username={username}
-                email={email}
-                onChange={onChange}
-                onCreate={onCreate}
-            />
-            <UserList
-                users={users}
-                onRemove={onRemove}
-                onToggle={onToggle}
-            />
-            <div>활성 사용자 수 : {count}</div>
+            <CreateUser />
+            <UserList />
+            <ActiveUserCount />
         </>
     );
 };

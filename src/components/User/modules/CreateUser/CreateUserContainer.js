@@ -1,7 +1,30 @@
-import React from "react";
+import React, {useCallback, useContext, useRef} from "react";
 import CreateUserView from "./CreateUserView";
+import { UserDispatchContext } from "../../../../contexts/UserContextProvider";
+import useInputs from "../../../../hooks/useInputs";
 
-const CreateUserContainer = ({username, email, onChange, onCreate}) => {
+const CreateUserContainer = () => {
+    const dispatch = useContext(UserDispatchContext);
+    const nextId = useRef(4);
+
+    const [{ username, email }, onChange, reset] = useInputs({
+        username: '',
+        email: ''
+    });
+
+    const onCreate = useCallback(() => {
+        dispatch({
+            type: 'CREATE_USER',
+            user: {
+                id: nextId.current,
+                username,
+                email
+            }
+        });
+        reset();
+
+        nextId.current += 1;
+    }, [dispatch, username, email, reset]);
 
     return (
         <CreateUserView
@@ -13,4 +36,4 @@ const CreateUserContainer = ({username, email, onChange, onCreate}) => {
     );
 };
 
-export default React.memo(CreateUserContainer);
+export default CreateUserContainer;
