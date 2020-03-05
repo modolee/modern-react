@@ -1,5 +1,6 @@
 import userData from "../data/users";
 import React, {useReducer} from "react";
+import produce from "immer";
 
 const initialState = {
     users: userData
@@ -8,22 +9,19 @@ const initialState = {
 const reducer = (state, action) => {
     switch(action.type) {
         case 'CREATE_USER':
-            return {
-                users: [
-                    ...state.users,
-                    action.user
-                ]
-            };
+            return produce(state, draft => {
+                draft.users.push(action.user);
+            });
         case 'REMOVE_USER':
-            return {
-                users: state.users.filter(user => user.id !== action.id)
-            };
+            return produce(state, draft => {
+                const index = draft.users.findIndex(user => user.id === action.id);
+                draft.users.splice(index, 1);
+            });
         case 'TOGGLE_USER':
-            return {
-                users: state.users.map(
-                    user => user.id === action.id
-                        ? {...user, active: !user.active} : user)
-            };
+            return produce(state, draft => {
+                const user = draft.users.find(user => user.id === action.id);
+                user.active = !user.active;
+            });
         default:
             return state;
     }
