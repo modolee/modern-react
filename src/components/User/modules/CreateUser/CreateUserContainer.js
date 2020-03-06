@@ -1,10 +1,10 @@
 import React, {useCallback, useContext, useRef} from "react";
 import CreateUserView from "./CreateUserView";
-import { UserDispatchContext } from "../../../../contexts/UserContextProvider";
+import { UserContext } from '../../../../contexts/UserContextProvider'
 import useInputs from "../../../../hooks/useInputs";
 
 const CreateUserContainer = () => {
-    const dispatch = useContext(UserDispatchContext);
+    const { dispatch } = useContext(UserContext);
     const nextId = useRef(4);
 
     const [{ username, email }, onChange, reset] = useInputs({

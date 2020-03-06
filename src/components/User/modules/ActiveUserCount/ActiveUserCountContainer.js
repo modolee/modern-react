@@ -1,6 +1,6 @@
 import React, {useContext, useMemo} from "react";
 import ActiveUserCountView from "./ActiveUserCountView";
-import { UserStateContext } from "../../../../contexts/UserContextProvider";
+import { UserContext } from "../../../../contexts/UserContextProvider";
 
 const countActiveUsers = users => {
     console.log('활성 사용자 수를 세는 중...');
@@ -8,7 +8,7 @@ const countActiveUsers = users => {
 };
 
 const ActiveUserCountContainer = () => {
-    const { users } = useContext(UserStateContext);
+    const { state: { users } } = useContext(UserContext);
 
     const count = useMemo( () => countActiveUsers(users), [users]);
 

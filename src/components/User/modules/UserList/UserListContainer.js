@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import UserListView from './UserListView';
-import { UserStateContext } from "../../../../contexts/UserContextProvider";
+import { UserContext } from '../../../../contexts/UserContextProvider'
 
 const UserListContainer = () => {
 
-    const { users } = useContext(UserStateContext);
+    const { state: { users } } = useContext(UserContext);
 
     return (
         <UserListView

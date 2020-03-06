@@ -1,10 +1,9 @@
 import React, {useCallback, useContext} from "react";
 import UserItemView from './UserItemView'
-import { UserDispatchContext } from "../../../../contexts/UserContextProvider";
+import { UserContext } from '../../../../contexts/UserContextProvider'
 
 const UserItemContainer = ({ user }) => {
-
-    const dispatch = useContext(UserDispatchContext);
+    const { dispatch } = useContext(UserContext);
 
     const onRemove = useCallback(id => {
         dispatch({

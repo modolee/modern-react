@@ -27,18 +27,15 @@ const reducer = (state, action) => {
     }
 };
 
-export const UserStateContext = React.createContext(null);
-export const UserDispatchContext = React.createContext(null);
+export const UserContext = React.createContext(null);
 
 const UserContextProvider = ({children}) => {
     const [state, dispatch]  = useReducer(reducer, initialState);
 
     return (
-        <UserStateContext.Provider value={state}>
-            <UserDispatchContext.Provider value={dispatch}>
-                {children}
-            </UserDispatchContext.Provider>
-        </UserStateContext.Provider>
+        <UserContext.Provider value={{ state, dispatch }}>
+            {children}
+        </UserContext.Provider>
     );
 };
 

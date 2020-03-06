@@ -5,11 +5,11 @@ import ActiveUserCount from './modules/ActiveUserCount';
 
 const UserView = () => {
     return (
-        <>
+        <React.Fragment>
             <CreateUser />
             <UserList />
             <ActiveUserCount />
-        </>
+        </React.Fragment>
     );
 };
 
